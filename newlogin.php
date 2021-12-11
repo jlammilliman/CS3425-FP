@@ -18,7 +18,7 @@ if ( isset($_POST["logout"]) ) {
    session_destroy(); 
 } 
 ?> 
-<div class="newLogin-div">
+<div class="border-div">
     <form method="post" action="newlogin.php">
         New Password: <input type="password" name="newPsswd" placeholder="Enter new password..."><br>
         Re-Enter Password: <input type="password" name="oldPsswd" placeholder="Enter new password..."><br>
@@ -27,7 +27,7 @@ if ( isset($_POST["logout"]) ) {
 <div>
 
 <style>
-    .newLogin-div {
+    .border-div {
         background-color: lightgray;
         border-radius: 3ch;
         text-align: right;

@@ -18,14 +18,23 @@ if ( isset($_POST["logout"]) ) {
    session_destroy(); 
 } 
 ?> 
-
-<form method="post" action="login.php">
-    username: <input type="text" name="username" placeholder="username"><br>
-    password: <input type="password" name="password" placeholder="password"><br>
-    <button class="button" type="submit" name="login" value="login">Login</button>
-</form>
+<div class="border-div">
+    <form method="post" action="login.php">
+        username: <input type="text" name="username" placeholder="username"><br>
+        password: <input type="password" name="password" placeholder="password"><br>
+        <button class="button" type="submit" name="login" value="login">Login</button>
+    </form>
+<div>
 
 <style>
+    .border-div {
+        background-color: lightgray;
+        border-radius: 3ch;
+        text-align: right;
+        display: inline-block;
+        padding: 2ch;
+    }
+    
     .button{
         background-color: white;
         border-radius: 4px;
