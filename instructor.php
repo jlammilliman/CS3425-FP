@@ -1,19 +1,28 @@
 <?php
     require "instructorDB.php";
+    session_start(); 
 ?>
 
 <body>   
     <div class="base-div" id="base">
         <label margin-left="10px">Courses:</label>
-        <form class="inner-div" method="POST">
-            <label class="Class">CS3425- Databases (Dummy Data)</label>
-            <button class="button-inline" id="showstuds" onclick="showStuds()">Students</button>  
-            <button class="button-inline" id="showevals" onclick="showEvals()">Evaluations</button>
-            <hr size="1" color="gray" margin="1px">
-        </form>
+        <?php
+            $courses = GetCourses($_SESSION["iID"]); 
+            ?> 
+    
+            <?php 
+            foreach ($courses as $row) { 
+                echo "<form class=\"inner-div\" method=\"POST\">";
+                echo "<label class=\"Class\">" . $row[0] . " - " . $row[1] ."</label>";
+                echo "<button class=\"button-inline\" id=\"showstuds\" onclick=\"showStuds($row[0])\">Students</button> ";
+                echo "<button class=\"button-inline\" id=\"showevals\" onclick=\"showEvals($row[0])\">Evaluations</button>";
+                echo "<hr size=\"1\" color=\"gray\" margin=\"1px\">";
+                echo "</form>";
+            } 
+        ?>
     </div>  
     <div class="base-div" id="sidepain">
-    
+
 
     <label margin-left="10px">Student for :</label>
         <form class="inner-div" method="POST">
@@ -27,8 +36,6 @@
 
 
 <style>
-
-
     .inner-div {
         background-color: white;
         text-align: left;
