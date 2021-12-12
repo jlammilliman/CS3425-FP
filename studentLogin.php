@@ -1,4 +1,6 @@
+
 <?php 
+require "db.php";
 session_start(); 
  
 // user clicked the login button */ 
@@ -8,7 +10,10 @@ if ( isset($_POST["login"]) ) {
       $_SESSION["username"]=$_POST["username"]; 
       header("LOCATION:Student.php"); 
       return; 
-   }else { 
+   }else if(nullPass($_POST["username"])==1){ 
+      header("LOCATION:newLogin.php");
+      return;
+   }else{
       echo '<p style="color:red">Incorrect username or password!</p>'; 
    }    
 }  
@@ -23,7 +28,7 @@ if ( isset($_POST["logout"]) ) {
 <h1>Student Login</h1>
 <p> Please enter your credentials </p>
 
-<form method="post" action="login.php">
+<form method="post" action="studentLogin.php">
     username: <input type="text" name="username" placeholder="username"><br>
     password: <input type="password" name="password" placeholder="password"><br>
     <button class="button" type="submit" name="login" value="login">Login</button>
