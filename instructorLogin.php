@@ -9,6 +9,9 @@ if ( isset($_POST["login"]) ) {
       $_SESSION["username"]=$_POST["username"]; 
       header("LOCATION:instructor.php"); 
       return; 
+    } else if (nullPass($_POST["username"])==1){ 
+        header("LOCATION:newLogin.php");
+        return;
    }else { 
       echo '<p style="color:red">Incorrect username or password!</p>'; 
    }    
