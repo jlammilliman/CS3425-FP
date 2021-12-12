@@ -13,8 +13,8 @@
         try { 
             $dbh = connectDB(); 
     
-            $statement = $dbh->prepare("SELECT cID, title FROM FP_Courses"); // where iID = :iID "); 
-            //$statement->bindParam(":iID", $_SESSION['iID']); 
+            $statement = $dbh->prepare("SELECT cID, title FROM FP_Courses WHERE iID = :iID "); 
+            $statement->bindParam(":iID", $_SESSION['ID']); 
             $statement->execute(); 
     
             return $statement->fetchAll(); 

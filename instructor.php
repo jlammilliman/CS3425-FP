@@ -2,7 +2,7 @@
     require "instructorDB.php";
     session_start(); 
 
-    $courses = GetCourses($_SESSION["iID"]); 
+    $courses = GetCourses($_SESSION["ID"]); 
 ?> 
 
 <body>   
@@ -34,7 +34,7 @@
             echo "</div>";
         }
     ?> 
-
+    </div>
     <div class="eval-div" id="bottompain">
     <?php   
         foreach($courses as $c) {
@@ -48,7 +48,6 @@
             echo "</div>";
         }
     ?> 
-    </div>
     
 </body>
 
@@ -62,6 +61,8 @@
         border-bottom:1px;
         border-color: gray;
         border-style: solid;
+        margin: 0px;
+        padding: 0px;
     }
 
     .eval-div {
@@ -69,10 +70,11 @@
         margin: 20px;
         display: block;
         padding:4px;
+        margin-top:20px;
         background-color: lightgray;
         border-radius: 4px;
         text-align: left;
-        float: right;
+        float: left;
         border: 1px;
         border-color: gray;
         border-style: solid;
