@@ -1,4 +1,5 @@
 <?php 
+require "db.php";
 session_start(); 
  
 // user clicked the login button */ 
@@ -6,7 +7,7 @@ if ( isset($_POST["login"]) ) {
     //check the username and passwd, if correct, redirect to main.php page 
     if (authenticate($_POST["username"], $_POST["password"]) == 1) { 
       $_SESSION["username"]=$_POST["username"]; 
-      header("LOCATION:main.php"); 
+      header("LOCATION:instructor.php"); 
       return; 
    }else { 
       echo '<p style="color:red">Incorrect username or password!</p>'; 
@@ -22,7 +23,7 @@ if ( isset($_POST["logout"]) ) {
 <h1>Insturctor Login</h1>
 <p> Please enter your credentials </p>
 
-<form method="post" action="login.php">
+<form method="post" action="instructorLogin.php">
     username: <input type="text" name="username" placeholder="username"><br>
     password: <input type="password" name="password" placeholder="password"><br>
     <button class="button" type="submit" name="login" value="login">Login</button>
