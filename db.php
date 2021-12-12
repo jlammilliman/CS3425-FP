@@ -23,7 +23,37 @@ function authenticate($user, $passwd) {
         print "Error! " . $e->getMessage() . "<br/>"; 
         die(); 
     } 
-} 
+}
+function isStudent($user){
+    try{
+    $dbh = connectDB();
+    $statement = $dbh -> prepare("SELECT count(*) FROM FP_Student where sID = (select id FROM FP_User where username = :username) ");
+    $statement -> bindParam(":username", $user);
+    $result = $statement->execute(); 
+    $row=$statement->fetch(); 
+    $dbh=null;
+    return $row[0];
+    }catch(PDOException $e){
+        print "Error! " . $e -> getMessage() . "<br/>";
+        die();
+    }
+
+}
+function isInstructor($user){
+    try{
+    $dbh = connectDB();
+    $statement = $dbh -> prepare("SELECT count(*) FROM FP_Instructor where iID = (select id FROM FP_User where username = :username) ");
+    $statement -> bindParam(":username", $user);
+    $result = $statement->execute(); 
+    $row=$statement->fetch(); 
+    $dbh=null;
+    return $row[0];
+    }catch(PDOException $e){
+        print "Error! " . $e -> getMessage() . "<br/>";
+        die();
+    }
+
+}
 function nullPass($user){
     try{
         $dbh = connectDB();

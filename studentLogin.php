@@ -6,7 +6,7 @@ session_start();
 // user clicked the login button */ 
 if ( isset($_POST["login"]) ) {  
     //check the username and passwd, if correct, redirect to main.php page 
-    if (authenticate($_POST["username"], $_POST["password"]) == 1) { 
+    if (authenticate($_POST["username"], $_POST["password"]) == 1 && isStudent($_POST["username"]) == 1) { 
       $_SESSION["username"]=$_POST["username"]; 
       header("LOCATION:Student.php"); 
       return; 
