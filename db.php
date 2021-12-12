@@ -83,23 +83,19 @@ function setPassword($user, $passwd){
         die();
 
     }
-}
-function get_accounts($user) 
-{ 
-    //connect to database 
-    //retrieve the data and display 
-    try { 
-        $dbh = connectDB(); 
- 
-        $statement = $dbh->prepare("SELECT account_no, balance name FROM lab3_accounts where username = :username "); 
-        $statement->bindParam(":username", $_SESSION['username']); 
+} 
+function get_ID($user){
+    try{
+        $dbh = connectDB();
+        $statement = $dbh -> prepare("select id FROM FP_User where username = :username");
+        $statement -> bindParam(":username", $user);
         $statement->execute(); 
- 
-        return $statement->fetchAll(); 
-        $dbh = null; 
-    } catch (PDOException $e) { 
-        print "Error!" . $e->getMessage() . "<br/>"; 
-        die(); 
-    } 
-}; 
+        $ID=$statement->fetch(); 
+        $dbh=null;
+        return $ID[0];
+        }catch(PDOException $e){
+            print "Error! " . $e -> getMessage() . "<br/>";
+            die();
+    }
+}
 ?> 
