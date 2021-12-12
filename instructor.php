@@ -1,21 +1,19 @@
 <?php
     require "instructorDB.php";
     session_start(); 
-?>
+
+    $courses = GetCourses($_SESSION["iID"]); 
+?> 
 
 <body>   
-    <div class="base-div" id="base">
+    <div class="base-div" id="basepain">
         <label margin-left="10px">Courses:</label>
-        <?php
-            $courses = GetCourses($_SESSION["iID"]); 
-            ?> 
-    
-            <?php 
+
+        <?php 
             foreach ($courses as $row) { 
                 echo "<form class=\"inner-div\" method=\"POST\">";
                 echo "<label class=\"Class\">" . $row[0] . " - " . $row[1] ."</label>";
-                echo "<button class=\"button-inline\" id=\"showstuds\" onclick=\"showStuds($row[0])\">Students</button> ";
-                echo "<button class=\"button-inline\" id=\"showevals\" onclick=\"showEvals($row[0])\">Evaluations</button>";
+                echo "<button class=\"button-inline\" float=\"right\" id=\"showevals" . $row[0] . "\" onclick=\"showEvals($row[0])\">Evaluations</button>";
                 echo "<hr size=\"1\" color=\"gray\" margin=\"1px\">";
                 echo "</form>";
             } 
@@ -23,17 +21,36 @@
     </div>  
     <div class="base-div" id="sidepain">
 
+    <label id="studentsList-label" margin-left="10px"></label>
+    <?php   
+        foreach($courses as $c) {
+            echo "<label display=\"block\"><span id=\"courseID\">Student list for " . $c[0] . " </span></label>";
+            echo "<div class=\"inner-div\" id=\"showStuds-div\">";
+            $students = GetCourseStuds($c[0]);
+            foreach ($students as $stud) { 
+                echo "<label>" . $stud[0] . "</label>";
+                echo "<hr size=\"1\" color=\"gray\" margin=\"1px\">";
+            }
+            echo "</div>";
+        }
+    ?> 
 
-    <label margin-left="10px">Student for :</label>
-        <form class="inner-div" method="POST">
-            <label class="Class">CS3425- Databases (Dummy Data)</label>
-            <button class="button-inline" id="showstuds" onclick="showStuds()">Students</button>  
-            <button class="button-inline" id="showevals" onclick="showEvals()">Evaluations</button>
-            <hr size="1" color="gray" margin="1px">
-        </form>
-    <div>                        
+    <div class="eval-div" id="bottompain">
+    <?php   
+        foreach($courses as $c) {
+            echo "<label display=\"block\"><span id=\"courseID\">Evaluations for " . $c[0] . " </span></label>";
+            echo "<div class=\"inner-div\" id=\"showStuds-div\">";
+            $evals = GetCourseEvals($c[0]);
+            foreach ($evals as $e) { 
+                echo "<label>" . $e[0] . " - " . $e[1] . "</label>";
+                echo "<hr size=\"1\" color=\"gray\" margin=\"1px\">";
+            }
+            echo "</div>";
+        }
+    ?> 
+    </div>
+    
 </body>
-
 
 <style>
     .inner-div {
@@ -46,6 +63,21 @@
         border-color: gray;
         border-style: solid;
     }
+
+    .eval-div {
+        width: 820px;
+        margin: 20px;
+        display: block;
+        padding:4px;
+        background-color: lightgray;
+        border-radius: 4px;
+        text-align: left;
+        float: right;
+        border: 1px;
+        border-color: gray;
+        border-style: solid;
+    }
+
 
     .base-div {
         width: 400px;
@@ -74,6 +106,7 @@
 
     .button-inline {
         border-radius: 4px;
+        float: right;
         color: black;
         text-align: center;
         text-decoration: none;
