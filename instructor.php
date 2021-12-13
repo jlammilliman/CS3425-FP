@@ -12,44 +12,38 @@
 ?> 
 
 <body>   
-
+    <form action="instructorLogin.php" method="post">
+        <input type="submit" value='logout' name="logout"> 
+        <?php
+            echo "Welcome " . $_SESSION["username"] . "!";
+        ?>
+    </form>
     <div class="base-div" id="basepain">
-        <label margin-left="10px">Courses:</label>
+        <h4 class="h4"> Courses</h4>
 
         <?php 
         //=========================================================
-        // List courses block here
+        // List courses--students list block here
         //=========================================================
-            foreach ($courses as $row) { 
+            foreach ($courses as $c) { 
                 echo "<div class=\"inner-div\">";
-                echo "<label class=\"Class\">" . $row[0] . " - " . $row[1] ."</label>";
+                echo "<h4 class=\"title-h4\">" . $c[0] . " - " . $c[1] ."</h4>";
+                echo "<div class=\"inner-div\" id=\"showStuds-div\">";
+                echo "<h4 class=\"h4\">Enrolled Students...</h4>";
+                $students = GetCourseStuds($c[0]);
+                foreach ($students as $stud) { 
+                    echo $stud[0];
+                    echo "<hr margin=\"1px\" padding=\"0px\" size=\"1\" color=\"gray\">";
+                }
+                echo "</div>";
                 echo "</div>";
             } 
         ?>
     </div>  
-    <div class="base-div" id="sidepain">
-
-    <label id="studentsList-label" margin-left="10px"></label>
-    <?php   
-        //=========================================================
-        // Show Students block here
-        //=========================================================
-        foreach($courses as $c) {
-            echo "<label display=\"block\"><span id=\"courseID\">Student list for " . $c[0] . " </span></label>";
-            echo "<div class=\"inner-div\" id=\"showStuds-div\">";
-            $students = GetCourseStuds($c[0]);
-            foreach ($students as $stud) { 
-                echo "<label>" . $stud[0] . "</label>";
-                echo "<hr size=\"1\" color=\"gray\">";
-            }
-            echo "</div>";
-        }
-    ?> 
-    </div>
 
     <?php   
         //=========================================================
-        // Evaluation block here
+        // Evaluation block(s) here
         //=========================================================
         $eqs = GetCourseEvalQuestions();
         foreach($courses as $c) {
@@ -220,7 +214,6 @@
         margin: 20px;
         padding:4px;
         background-color: lightgray;
-        vertical-align:top;
         border-radius: 4px;
         text-align: left;
         float: left;
