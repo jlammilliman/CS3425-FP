@@ -6,16 +6,15 @@
 ?> 
 
 <body>   
+    
     <div class="base-div" id="basepain">
         <label margin-left="10px">Courses:</label>
 
         <?php 
             foreach ($courses as $row) { 
-                echo "<form class=\"inner-div\" method=\"POST\">";
+                echo "<div class=\"inner-div\">";
                 echo "<label class=\"Class\">" . $row[0] . " - " . $row[1] ."</label>";
-                echo "<button class=\"button-inline\" float=\"right\" id=\"showevals" . $row[0] . "\" onclick=\"showEvals($row[0])\">Evaluations</button>";
-                echo "<hr size=\"1\" color=\"gray\" margin=\"1px\">";
-                echo "</form>";
+                echo "</div>";
             } 
         ?>
     </div>  
@@ -29,7 +28,7 @@
             $students = GetCourseStuds($c[0]);
             foreach ($students as $stud) { 
                 echo "<label>" . $stud[0] . "</label>";
-                echo "<hr size=\"1\" color=\"gray\" margin=\"1px\">";
+                echo "<hr size=\"1\" color=\"gray\">";
             }
             echo "</div>";
         }
@@ -47,11 +46,34 @@
             }
             echo "</div>";
         }
-    ?> 
-    
+    ?>     
 </body>
 
 <style>
+    .custom-table, th {
+        border: 1px solid gray;
+        text-align: left;
+        margin: 0ch;
+        padding: 4px;
+        border-collapse: collapse;
+        background-color: lightgray;
+    }
+    
+    .td {
+        border-right: 1px solid gray;
+        text-align: right;
+        margin: 0ch;
+        padding: 4px;
+        border-collapse: collapse;
+        background-color: white;
+    }
+
+    .br {
+        margin: 2px;
+        padding: 2px;
+        text-align: right;
+    }
+
     .inner-div {
         background-color: white;
         text-align: left;
