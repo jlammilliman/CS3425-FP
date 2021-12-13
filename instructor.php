@@ -3,7 +3,7 @@
     session_start(); 
 
     if(!isset($_SESSION["ID"])) {
-        header("LOCATION:main.php"); 
+        header("LOCATION:login.php"); 
         session_destroy(); 
     }
 
@@ -12,11 +12,11 @@
 ?> 
 
 <body>   
-    <form action="instructorLogin.php" method="post">
-        <input type="submit" value='logout' name="logout"> 
+    <form action="login.php" method="post">
         <?php
             echo "Welcome " . $_SESSION["username"] . "!";
         ?>
+        <input type="submit" value='logout' name="logout"> 
     </form>
     <div class="base-div" id="basepain">
         <h4 class="h4"> Courses</h4>

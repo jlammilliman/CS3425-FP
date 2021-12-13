@@ -1,19 +1,28 @@
+
 <?php 
 require "db.php";
 session_start(); 
  
 // user clicked the login button */ 
 if ( isset($_POST["login"]) ) {  
-    //check the username and passwd, if correct, redirect to main.php page 
-    if (authenticate($_POST["username"], $_POST["password"]) == 1 && isInstructor($_POST["username"])==1) { 
-      $_SESSION["username"]=$_POST["username"]; 
-      $_SESSION["ID"]=get_ID($_SESSION["username"]);
-      header("LOCATION:instructor.php"); 
-      return; 
-    } else if (nullPass($_POST["username"])==1){ 
-        header("LOCATION:newLogin.php");
+    //check the username and passwd, if correct, redirect to login.php page 
+    if (authenticate($_POST["username"], $_POST["password"]) == 1) { 
+      
+      if(isStudent($_POST["username"]) == 1){
+        $_SESSION["username"]=$_POST["username"]; 
+        $_SESSION["ID"]=get_ID($_SESSION["username"]);
+        header("LOCATION:student.php"); 
         return;
-   }else { 
+      }else if(isInstructor($_POST["username"])==1){
+        $_SESSION["username"]=$_POST["username"]; 
+        $_SESSION["ID"]=get_ID($_SESSION["username"]);
+        header("LOCATION:instructor.php"); 
+        return; 
+      }  
+   }else if(nullPass($_POST["username"])==1){ 
+      header("LOCATION:newLogin.php");
+      return;
+   }else{
       echo '<p style="color:red">Incorrect username or password!</p>'; 
    }    
 }  
@@ -21,17 +30,22 @@ if ( isset($_POST["login"]) ) {
 // user clicked the logout button */ 
 if ( isset($_POST["logout"]) ) {  
    session_destroy(); 
+   header("LOCATION:login.php");
 } 
 ?> 
-<div class = instructorLogin>
-<h1>Insturctor Login</h1>
+
+<div class = login>
+<h2> Welcome to J&J evaluations!</h2>
+
+<h3>Login</h3>
 <p> Please enter your credentials </p>
 
-<form method="post" action="instructorLogin.php">
+<form method="post" action="login.php">
     username: <input type="text" name="username" placeholder="username"><br>
     password: <input type="password" name="password" placeholder="password"><br>
     <button class="button" type="submit" name="login" value="login">Login</button>
 </form>
+
 </div>
 
 <style>
