@@ -6,21 +6,19 @@ session_start();
 // user clicked the login button */ 
 if ( isset($_POST["login"]) ) {  
     //check the username and passwd, if correct, redirect to login.php page 
-    if (authenticate($_POST["username"], $_POST["password"]) == 1) { 
-      
+    $_SESSION["username"]=$_POST["username"]; 
+    if (authenticate($_SESSION["username"], $_POST["password"]) == 1) { 
       if(isStudent($_POST["username"]) == 1){
-        $_SESSION["username"]=$_POST["username"]; 
         $_SESSION["ID"]=get_ID($_SESSION["username"]);
         header("LOCATION:student.php"); 
         return;
       }else if(isInstructor($_POST["username"])==1){
-        $_SESSION["username"]=$_POST["username"]; 
         $_SESSION["ID"]=get_ID($_SESSION["username"]);
         header("LOCATION:instructor.php"); 
         return; 
       }  
    }else if(nullPass($_POST["username"])==1){ 
-      header("LOCATION:newLogin.php");
+      header("LOCATION:newlogin.php");
       return;
    }else{
       echo '<p style="color:red">Incorrect username or password!</p>'; 
