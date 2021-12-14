@@ -199,7 +199,7 @@ function SetResp($q, $resp){
     try{
         $dbh = connectDB();
         $dropStatement = $dbh->prepare("DELETE FROM FP_EvalResponses WHERE sID=:ID AND cID=:courseID AND qNum=:qNumID");
-        $statement = $dbh->prepare("INSERT INTO FP_EvalResponses (qNum, cID, sID, response, compDateTime) VALUES (:qNumID, :cID, :ID, :resp, CURDATE())");
+        $statement = $dbh->prepare("INSERT INTO FP_EvalResponses (qNum, cID, sID, response, compDateTime) VALUES (:qNumID, :cID, :ID, :resp, NOW())");
         $dropStatement->bindParam(":qNumID", $q); 
         $dropStatement->bindParam(":courseID", $_SESSION["cID"]); 
         $dropStatement->bindParam(":ID", $_SESSION["ID"]);

@@ -16,25 +16,31 @@ foreach ($eqs as $q) {
 
     // if the questiontype is freeresponse-- list the reponses: else multiplechoice-- build the table to display data,
     //qNum,qPrompt,qType
-    if ($q[2] == "multipleChoice") {
+    if ($q[2] == "cheese") {
         $types = array("Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree");
         $resps = GetStudentFreeRespEval($_SESSION["cID"], $q[0], $_SESSION["ID"]);
-        ?>
-        <form method = "post" action = "eval.php"> <input type = "text" name = q.<?php $q[0]; ?>>
-        <?php
-        echo $q[0];
-        if(!empty($resps[0])){
-            echo $resps[0][0];
-        }
-        echo "</input></form>";
+
     } else {
         $resps = GetStudentFreeRespEval($_SESSION["cID"], $q[0], $_SESSION["ID"]);
-        echo "<input>";
+        
+        // Build input forms
+        echo "<form method=\"post\" action =\"eval.php\">";
+        echo "<input type =\"text\" placeholder=\"";
         if(!empty($resps[0])){
             echo $resps[0][0];
+        } else {
+            echo "Neutral";
         }
-        echo "</input>";
+        echo "\" name = \"q" . $q[0] . "\">";
+        echo "<input type =\"submit\" name = \"Save" . $q[0] . "\" value = \"Save\">";
+
+        if (isset($_POST["Save" . $q[0] . ""])){
+            SetResp($q[0], $_POST["q" . $q[0] . ""]);
+            header("LOCATION:eval.php");
+        }
+        echo "</form>";
     }
+    
     echo "</div>";
 }
 echo "</div>";
@@ -44,19 +50,10 @@ echo "</div>";
 if (isset($_POST["goBack"])) {
     header("LOCATION:student.php");
 }
-if (isset($_POST["submit"])) {
-    foreach($eqs as $q){
-        SetResp($q[0],$_POST["q." .$q[0]]);
-    }
-    //header("LOCATION:eval.php");
-}
 
 ?>
 <form method="post" action="eval.php" display="contents">
     <td class="td"> <button class="button" type="submit" name="goBack" value="goBack">Go Back</button> </td>
-</form>
-<form method="post" action="eval.php" display="contents">
-    <td class="td"> <button class="button" type="submit" name="submit" value="submit">Submit</button> </td>
 </form>
 
 <style>
