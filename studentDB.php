@@ -6,7 +6,7 @@
             $dbh = connectDB(); 
             
             // Get the list of student names 
-            $statement = $dbh->prepare("SELECT c.cID,c.title,er.compDateTime FROM FP_Enroll AS e LEFT JOIN FP_Courses AS c ON c.cID=e.cID LEFT JOIN FP_EvalResponses AS er ON er.cID=c.cID AND er.sID=:ID WHERE e.sID=:ID");
+            $statement = $dbh->prepare("SELECT * FROM(SELECT c.cID,c.title,er.compDateTime, ROW_NUMBER() OVER(PARTITION BY c.cID ORDER BY c.cID ASC) rn FROM FP_Enroll AS e LEFT JOIN FP_Courses AS c ON c.cID=e.cID LEFT JOIN FP_EvalResponses AS er ON er.cID=c.cID AND er.sID=:ID WHERE e.sID=:ID) a WHERE rn = 1");
             $statement->bindParam(":ID", $_SESSION["ID"]); 
             $statement->execute(); 
             return $statement->fetchAll(); 

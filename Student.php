@@ -24,8 +24,9 @@ input[type="submit"] {
         margin: 0ch;
         padding: 4px;
         border-collapse: collapse;
-        background-color: lightgray;
+        background-color: lightblue;
         column-width: auto;
+
         
 }
 .td {
@@ -87,6 +88,7 @@ submit{
 ?>
 
 <form method = "post" action = student.php>
+    <br>
     <input type = "text" placeholder="Enter cID here" name = "cID">
     <input type = "submit" name = "Enroll" value = "Enroll">
     <?php
@@ -120,10 +122,10 @@ submit{
     //=========================================================
         foreach ($allCourses as $c) { 
             echo "<tr>";
-            echo "<td>" . $c[0] . "</td>";
-            echo "<td>". $c[2] . "</td>";
-            echo "<td>" . $c[1] . "</td>";
-            echo "<td>" . $c[3] . "</td>";
+            echo "<td class=\"td\">" . $c[0] . "</td>";
+            echo "<td class=\"td\">" . $c[2] . "</td>";
+            echo "<td class=\"td\">" . $c[1] . "</td>";
+            echo "<td class=\"td\">" . $c[3] . "</td>";
             echo "</tr>";
         } 
     ?>
