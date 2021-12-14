@@ -7,18 +7,27 @@
         header("LOCATION:login.php"); 
         session_destroy(); 
     }
+    if(isset($_POST["changePass"])) {
+        header("LOCATION:newLogin.php"); 
+        session_destroy(); 
+    }
 
 
     $courses = GetCourses($_SESSION["ID"]); 
 ?> 
 
 <body>   
-    <form action="login.php" method="post">
+    <form style='display:inline, position:relative' action="login.php" method="post">
         <?php
             echo "Welcome " . $_SESSION["username"] . "!";
         ?>
-        <input type="submit" value='logout' name="logout"> 
+        <input type="submit" value='logout' name="logout">
+
     </form>
+    <form style='display:inline, position:relative' action="newLogin.php" method="post">
+        <input type="submit" value='Change Password' name="changePass"> 
+    </form>
+
     <div class="base-div" id="basepain">
         <h4 class="h4"> Courses</h4>
 

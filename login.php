@@ -5,16 +5,15 @@ session_start();
  
 // user clicked the login button */ 
 if ( isset($_POST["login"]) ) {  
+  $_SESSION["username"]=$_POST["username"]; 
     //check the username and passwd, if correct, redirect to login.php page 
     if (authenticate($_POST["username"], $_POST["password"]) == 1) { 
       
       if(isStudent($_POST["username"]) == 1){
-        $_SESSION["username"]=$_POST["username"]; 
         $_SESSION["ID"]=get_ID($_SESSION["username"]);
         header("LOCATION:student.php"); 
         return;
       }else if(isInstructor($_POST["username"])==1){
-        $_SESSION["username"]=$_POST["username"]; 
         $_SESSION["ID"]=get_ID($_SESSION["username"]);
         header("LOCATION:instructor.php"); 
         return; 
@@ -41,8 +40,8 @@ if ( isset($_POST["logout"]) ) {
 <p> Please enter your credentials </p>
 
 <form method="post" action="login.php">
-    username: <input type="text" name="username" placeholder="username"><br>
-    password: <input type="password" name="password" placeholder="password"><br>
+    username: <input style = "margin: 5px" type="text" name="username" placeholder="username"><br>
+    password: <input style = "margin: 5px" type="password" name="password" placeholder="password"><br>
     <button class="button" type="submit" name="login" value="login">Login</button>
 </form>
 

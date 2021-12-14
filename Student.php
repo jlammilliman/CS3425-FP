@@ -13,11 +13,6 @@ input[type="text"] {
     height: 20px;
     padding-right: 50px;
 }
-
-input[type="submit"] {
-    height: 20px;
-    width: 50px;
-}
 .custom-table, th {
         border: 1px solid gray;
         text-align: left;
@@ -38,9 +33,6 @@ input[type="submit"] {
         background-color: white;
 
 }
-submit{
-        width: auto;
-}
 </style>
 
 <?php
@@ -57,6 +49,10 @@ submit{
             echo "Welcome " . $_SESSION["username"] . "!";
         ?>
         <input type="submit" value='logout' name="logout"> 
+    </form>
+
+<form style='display:inline, position:relative' action="newLogin.php" method="post">
+        <input type="submit" value='Change Password' name="changePass"> 
     </form>
 
 <table class = "custom-table">

@@ -4,21 +4,20 @@ require "db.php";
 // user clicked the login button */ 
 if ( isset($_POST["login"]) ) {  
     //check the old and new passwd, if correct, redirect to appropriate page 
-    if ($_POST["newPsswd"] == $_POST["newPsswdConfirm"] ) { 
-      setPassword($_POST["username"], $_POST["newPsswd"]);
+    if ($_POST["newPsswd"] == $_POST["newPsswdConfirm"]) { 
+      setPassword($_SESSION["username"], $_POST["newPsswd"]);
       header("LOCATION:login.php"); 
       session_destroy(); 
       return; 
    }else { 
-      echo '<p style="color:red">Incorrect username or password!</p>'; 
+      echo '<p style="color:red">Invalid username or password!</p>'; 
    }    
 }  
 ?> 
 <div class="border-div">
     <form method="post" action="newLogin.php">
-        Username: <input type="text" name= "username" placeholder="Enter Username"><br>
         New Password: <input type="password" name="newPsswd" placeholder="Enter new password..."><br>
-        Re-Enter Password: <input type="password" name="newPassPsswd" placeholder="Enter new password..."><br>
+        Re-Enter Password: <input type="password" name="newPsswdConfirm" placeholder="Enter new password..."><br>
         <button class="button" type="submit" name="login" value="login">Login</button>
     </form>
 <div>
