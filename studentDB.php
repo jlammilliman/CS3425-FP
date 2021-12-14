@@ -1,5 +1,5 @@
 <?php   
-    function get_enrolledCourses(){
+    function GetEnrolledCourses(){
          //connect to database 
         //retrieve the data and display 
         try { 
@@ -17,6 +17,26 @@
         } 
 
     }
+    function isEnrolled($cID){
+        //connect to database 
+       //retrieve the data and display 
+       try { 
+           $dbh = connectDB(); 
+           
+           // Get the list of student names 
+           $statement = $dbh->prepare("SELECT count(*) FROM FP_Enroll WHERE sID = :ID AND cID = :cID");
+           $statement->bindParam(":ID", $_SESSION["ID"]); 
+           $statement->bindParam(":cID", $cID);
+           $statement->execute(); 
+           $row = $statement->fetch();
+           return  $row[0];
+           $dbh = null; 
+       } catch (PDOException $e) { 
+           print "Error!" . $e->getMessage() . "<br/>"; 
+           die(); 
+       } 
+
+   }
     function GetAllCoursesInfo() { 
         //connect to database 
         //retrieve the data and display 
@@ -35,7 +55,6 @@
     }
     function enroll($cID){
         try{
-            
             $dbh = connectDB();
             $statement = $dbh->prepare("INSERT INTO FP_Enroll (sID, cID) VALUES (:ID,:cID)");
             $statement->bindParam(":cID", $cID); 
@@ -43,6 +62,7 @@
             $statement->execute();
             $dbh = null;
             return;
+            
     
         }catch(PDOException $e){
             print "Error! ". $e->getMessage() . "<br/>";

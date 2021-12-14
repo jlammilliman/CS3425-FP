@@ -175,4 +175,45 @@ function GetFreeRespEval($cID,$qNum){
         die(); 
     } 
 }
+function GetStudentFreeRespEval($cID,$qNum,$sID){
+    //connect to database 
+    //retrieve the data and display 
+    try { 
+        $dbh = connectDB(); 
+        
+        // Get the list of student names 
+        $statement = $dbh->prepare("SELECT response FROM FP_EvalResponses WHERE cID=:courseID AND qNum=:qNumID AND sID = :ID");
+        $statement->bindParam(":qNumID", $qNum); 
+        $statement->bindParam(":courseID", $cID);  
+        $statement->bindParam(":ID", $sID);  
+        $statement->execute(); 
+
+        return $statement->fetchAll(); 
+        $dbh = null; 
+    } catch (PDOException $e) { 
+        print "Error!" . $e->getMessage() . "<br/>"; 
+        die(); 
+    } 
+}
+function SetResp($q, $resp){
+    try{
+        $dbh = connectDB();
+        $dropStatement = $dbh->prepare("DELETE FROM FP_EvalResponses WHERE sID=:ID AND cID=:courseID AND qNum=:qNumID");
+        $statement = $dbh->prepare("INSERT INTO FP_EvalResponses (qNum, cID, sID, response, compDateTime) VALUES (:qNumID, :cID, :ID, :resp, CURDATE())");
+        $dropStatement->bindParam(":qNumID", $q); 
+        $dropStatement->bindParam(":courseID", $_SESSION["cID"]); 
+        $dropStatement->bindParam(":ID", $_SESSION["ID"]);
+        $statement->bindParam(":qNumID", $q); 
+        $statement->bindParam(":cID", $_SESSION["cID"]); 
+        $statement->bindParam(":ID", $_SESSION["ID"]); 
+        $statement->bindParam(":resp", $resp);
+        $dropStatement->execute(); 
+        $statement->execute();
+        $dbh = null; 
+    }catch(PDOException $e){
+        print "Error!" . $e->getMessage() . "<br/>";
+        die();
+    }
+         
+}
 ?> 

@@ -13,14 +13,11 @@
 ?> 
 
 <body>   
-    <?php
-        echo "Welcome " . $_SESSION["username"] . "!";
-    ?>
     <form action="login.php" method="post">
+        <?php
+            echo "Welcome " . $_SESSION["username"] . "!";
+        ?>
         <input type="submit" value='logout' name="logout"> 
-    </form>
-    <form action="newlogin.php" method="post">
-        <input type="submit" value='changePassword' name="Change Password"> 
     </form>
     <div class="base-div" id="basepain">
         <h4 class="h4"> Courses</h4>

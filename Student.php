@@ -25,6 +25,7 @@ input[type="submit"] {
         padding: 4px;
         border-collapse: collapse;
         background-color: lightgray;
+        column-width: auto;
         
 }
 .td {
@@ -34,6 +35,10 @@ input[type="submit"] {
         padding: 4px;
         border-collapse: collapse;
         background-color: white;
+
+}
+submit{
+        width: auto;
 }
 </style>
 
@@ -42,7 +47,7 @@ input[type="submit"] {
     require "studentDB.php";
     session_start();
     if (isset($_SESSION["username"])) {
-        $courses = get_enrolledCourses();
+        $courses = GetEnrolledCourses();
         $allCourses = GetALLCoursesInfo();
     }
 ?>
@@ -56,19 +61,30 @@ input[type="submit"] {
 <table class = "custom-table">
     <tr>
         <th>Enrolled Courses: </th>
-        <th>Eval</th> 
+        <th>Evaluation</th> 
         <th>Completion Date/Time</th>
     </tr>
     <?php
     foreach ($courses as $row) {
         echo "<tr>";
         echo "<td class=\"td\">" . $row[0] . " - " . $row[1] ."</td>";
-        echo "<td class=\"td\"> <a href=\"studentEval.php\">View/Edit</a> </td>";
+    ?>
+    <form method = "post" action = "student.php">
+    <td class="td"> <button class= "button" type="submit" name="Eval" value="<?php echo $row[0]; ?>">View/Edit</button> </td>
+    </form>
+    <?php
         echo "<td class=\"td\">" . $row[2] . "</td>";
         echo "</tr>";
     }
     ?>
 </table>
+
+<?php
+    if(isset($_POST["Eval"])){
+        $_SESSION["cID"]=$_POST["Eval"];
+        header("LOCATION:eval.php");
+    }
+?>
 
 <form method = "post" action = student.php>
     <input type = "text" placeholder="Enter cID here" name = "cID">
@@ -76,8 +92,13 @@ input[type="submit"] {
     <?php
     if (isset($_POST["Enroll"])){
         $cID = $_POST["cID"];
-        enroll($cID);
-        header("LOCATION:student.php"); 
+        if(isEnrolled($cID)==0){
+            enroll($cID);
+            header("LOCATION:student.php");
+        }else{
+            echo '<p style = "color:red"> "Already enrollod in course!"</p>';
+        }
+         
 
     }
 
