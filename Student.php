@@ -39,7 +39,10 @@ input[type="text"] {
     require "db.php";
     require "studentDB.php";
     session_start();
-    if (isset($_SESSION["username"])) {
+    if(!isset($_SESSION["ID"])) {
+        header("LOCATION:login.php"); 
+        session_destroy(); 
+    } else {
         $courses = GetEnrolledCourses();
         $allCourses = GetALLCoursesInfo();
     }

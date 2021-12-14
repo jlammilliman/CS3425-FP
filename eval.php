@@ -2,6 +2,16 @@
 require "db.php";
 require "studentDB.php";
 session_start();
+
+if(!isset($_SESSION["ID"])) {
+    header("LOCATION:login.php"); 
+    session_destroy(); 
+}
+if(!isset($_SESSION["cID"])) {
+    header("LOCATION:student.php"); 
+}
+
+
 $eqs = GetCourseEvalQuestions();
 $courses = GetEnrolledCourses();
 

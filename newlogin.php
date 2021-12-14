@@ -10,7 +10,7 @@ if ( isset($_POST["login"]) ) {
       session_destroy(); 
       return; 
    }else { 
-      echo '<p style="color:red">Invalid username or password!</p>'; 
+      echo '<p style="color:red">Passwords do not match!</p>'; 
    }    
 }  
 ?> 
