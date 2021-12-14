@@ -16,12 +16,30 @@ foreach ($eqs as $q) {
 
     // if the questiontype is freeresponse-- list the reponses: else multiplechoice-- build the table to display data,
     //qNum,qPrompt,qType
-    if ($q[2] == "cheese") {
+    if ($q[2] == "multipleChoice") {
         $types = array("Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree");
-        $resps = GetStudentFreeRespEval($_SESSION["cID"], $q[0], $_SESSION["ID"]);
+        $resps = GetStudentEvalResp($_SESSION["cID"], $q[0], $_SESSION["ID"]);
+
+        // Build input forms
+        echo "<form method=\"post\" action =\"eval.php\">";
+
+        echo "<select name=\"q" . $q[0] . "\" multiple=\"multiple\">";
+        foreach($types as $t) {
+           echo "<option width=\"100px\" value=\"" . $t . "\">" . $t . "</option>";
+        }
+        echo "</select>";
+
+        echo "<input type =\"submit\" name = \"Save" . $q[0] . "\" value = \"Save\">";
+
+        if (isset($_POST["Save" . $q[0] . ""])){
+            SetResp($q[0], $_POST["q" . $q[0] . ""]);
+            header("LOCATION:eval.php");
+        }
+        echo "</form>";
+
 
     } else {
-        $resps = GetStudentFreeRespEval($_SESSION["cID"], $q[0], $_SESSION["ID"]);
+        $resps = GetStudentEvalResp($_SESSION["cID"], $q[0], $_SESSION["ID"]);
         
         // Build input forms
         echo "<form method=\"post\" action =\"eval.php\">";

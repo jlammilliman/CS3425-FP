@@ -175,7 +175,7 @@ function GetFreeRespEval($cID,$qNum){
         die(); 
     } 
 }
-function GetStudentFreeRespEval($cID,$qNum,$sID){
+function GetStudentEvalResp($cID,$qNum,$sID){
     //connect to database 
     //retrieve the data and display 
     try { 
@@ -195,6 +195,7 @@ function GetStudentFreeRespEval($cID,$qNum,$sID){
         die(); 
     } 
 }
+
 function SetResp($q, $resp){
     try{
         $dbh = connectDB();
