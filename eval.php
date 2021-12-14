@@ -36,8 +36,8 @@ foreach ($eqs as $q) {
         echo "<select name=\"q" . $q[0] . "\" multiple=\"multiple\">";
         foreach($types as $t) {
            echo "<option width=\"100px\" value=\"" . $t . "\"";
-           if ($t == $resps[0][0]) {
-               echo "selected=\"selected\"";
+           if ( (!empty($resps[0])) && ($t == $resps[0][0]) ) {
+               echo " selected=\"selected\"";
            }
            echo ">" . $t . "</option>";
         }
