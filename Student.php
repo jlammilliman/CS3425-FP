@@ -43,7 +43,7 @@ input[type="submit"] {
     session_start();
     if (isset($_SESSION["username"])) {
         $courses = get_enrolledCourses();
-        $allCourses = GetALLCourses();
+        $allCourses = GetALLCoursesInfo();
     }
 ?>
 <form action="login.php" method="post">
@@ -71,7 +71,6 @@ input[type="submit"] {
 </table>
 
 <form method = "post" action = student.php>
-    <button> View Courses </button>
     <input type = "text" placeholder="Enter cID here" name = "cID">
     <input type = "submit" name = "Enroll" value = "Enroll">
     <?php
@@ -85,15 +84,25 @@ input[type="submit"] {
     ?>
 </form>
 <div id = "CourseList">
+    <h3> Courses List</h3>
+
     <table class = "custom-table">
-    <th> Courses List</th>
+    <tr>
+        <th>cID </th>
+        <th>Title</th> 
+        <th>Instructor</th>
+        <th>Credits</th>
+    </tr>
     <?php 
     //=========================================================
     // List courses--students list block here
     //=========================================================
         foreach ($allCourses as $c) { 
             echo "<tr>";
-            echo "<td class=\"td\">" . $c[0] . " - " . $c[1] ."</td>";
+            echo "<td>" . $c[0] . "</td>";
+            echo "<td>". $c[2] . "</td>";
+            echo "<td>" . $c[1] . "</td>";
+            echo "<td>" . $c[3] . "</td>";
             echo "</tr>";
         } 
     ?>

@@ -17,13 +17,13 @@
         } 
 
     }
-    function GetAllCourses() { 
+    function GetAllCoursesInfo() { 
         //connect to database 
         //retrieve the data and display 
         try { 
             $dbh = connectDB(); 
     
-            $statement = $dbh->prepare("SELECT cID, title FROM FP_Courses"); 
+            $statement = $dbh->prepare("SELECT c.cID,u.name,c.title,c.credit FROM FP_Courses AS c LEFT JOIN FP_User AS u ON u.ID=c.iID;"); 
             $statement->execute(); 
     
             return $statement->fetchAll(); 
